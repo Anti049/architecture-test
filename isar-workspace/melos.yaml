@@ -1,0 +1,22 @@
+name: architecture_test_isar
+
+packages:
+  - packages/**
+  - apps/**
+
+command:
+  bootstrap:
+    runPubGetInParallel: true
+
+scripts:
+  gen:
+    run: dart run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+    packageFilters:
+      dependsOn: build_runner
+    description: Run build_runner in the Isar workspace (pinned build_runner 2.4.x).
+
+  analyze:
+    run: dart analyze .
+    description: Analyze Isar workspace packages.

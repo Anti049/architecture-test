@@ -1,0 +1,13 @@
+.dart_tool/
+build/
+.idea/
+.vscode/
+*.iml
+pubspec.lock
+
+# For a comparison repo we KEEP generated files so reviewers can diff codegen
+# output. Uncomment to ignore them instead:
+# **/*.g.dart
+# **/*.freezed.dart
+# **/*.mapper.dart
+# **/*.gr.dart

@@ -1,0 +1,45 @@
+name: architecture_test
+
+# Only manages the MAIN workspace packages. The Isar workspace has its own
+# melos.yaml and must be bootstrapped/generated separately (see README).
+packages:
+  - packages/**
+  - apps/**
+
+command:
+  bootstrap:
+    runPubGetInParallel: true
+
+scripts:
+  analyze:
+    run: dart analyze .
+    description: Analyze all main-workspace packages.
+
+  format:
+    run: dart format .
+    description: Format all Dart code.
+
+  gen:
+    run: dart run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+    packageFilters:
+      dependsOn: build_runner
+    description: Run build_runner in main-workspace packages that use codegen.
+
+  gen:watch:
+    run: dart run build_runner watch --delete-conflicting-outputs
+    packageFilters:
+      dependsOn: build_runner
+    description: Watch codegen.
+
+  test:
+    run: flutter test
+    packageFilters:
+      flutter: true
+      dirExists: test
+    description: Run all tests.
+
+  clean:deep:
+    run: melos exec -- "flutter clean"
+    description: Deep clean every package.

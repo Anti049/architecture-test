@@ -1,0 +1,18 @@
+name: architecture_test_isar_workspace
+publish_to: none
+
+environment:
+  sdk: ^3.6.0
+
+# WORKSPACE 2 (Isar / pinned older codegen stack).
+# This workspace is ISOLATED from the main one so isar_community_generator
+# (analyzer ^6.9.0 <7.0.0) never has to co-resolve with Freezed 3.x.
+# Immutable models here use PLAIN classes or dart_mappable ONLY (never Freezed).
+workspace:
+  - packages/db_isar
+  - apps/app_isar
+  - apps/app_isar_bloc_autoroute
+  - apps/app_kitchensink
+
+dev_dependencies:
+  melos: ^6.3.0
