@@ -1,0 +1,19 @@
+name: db_isar
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  # core_domain is shared from the MAIN workspace's packages folder.
+  core_domain:
+    path: ../../../packages/core_domain
+  isar_community: ^3.3.2
+  isar_community_flutter_libs: ^3.3.2
+  path_provider: ^2.1.5
+dev_dependencies:
+  # IMPORTANT: pinned to the analyzer <7 stack. Do NOT bump build_runner past
+  # 2.4.x here or it will pull build 4 / analyzer 13 and break isar codegen.
+  build_runner: ^2.4.13
+  isar_community_generator: ^3.3.2
