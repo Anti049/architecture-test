@@ -1,0 +1,12 @@
+name: feature_splash
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  core_domain:
+    path: ../core_domain
+  nav_contract:
+    path: ../nav_contract
