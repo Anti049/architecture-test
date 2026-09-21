@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  main-workspace:
+    name: Main workspace (bootstrap + gen + analyze)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: dart pub global activate melos
+      - run: melos bootstrap
+      - run: melos run gen
+      - run: melos run analyze
+
+  isar-workspace:
+    name: Isar workspace (bootstrap + gen + analyze)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - run: dart pub global activate melos
+      - name: Bootstrap (isar)
+        working-directory: isar-workspace
+        run: melos bootstrap
+      - name: Codegen (isar)
+        working-directory: isar-workspace
+        run: melos run gen
+      - name: Analyze (isar)
+        working-directory: isar-workspace
+        run: melos run analyze
