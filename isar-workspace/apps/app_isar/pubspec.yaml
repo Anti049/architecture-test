@@ -1,0 +1,45 @@
+name: app_isar
+description: Isar permutation (Isar + Riverpod + Plain models + GoRouter).
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  # shared packages come from the MAIN workspace's packages folder
+  core_domain:
+    path: ../../../packages/core_domain
+  nav_contract:
+    path: ../../../packages/nav_contract
+  feature_splash:
+    path: ../../../packages/feature_splash
+  feature_auth:
+    path: ../../../packages/feature_auth
+  feature_library:
+    path: ../../../packages/feature_library
+  feature_updates:
+    path: ../../../packages/feature_updates
+  feature_history:
+    path: ../../../packages/feature_history
+  feature_browse:
+    path: ../../../packages/feature_browse
+  feature_more:
+    path: ../../../packages/feature_more
+  nav_gorouter:
+    path: ../../../packages/nav_gorouter
+  model_plain:
+    path: ../../../packages/model_plain
+  # Isar impl lives in THIS workspace
+  db_isar:
+    path: ../../packages/db_isar
+  flutter_riverpod: ^2.6.1
+  go_router: ^16.0.0
+  shared_preferences: ^2.3.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+flutter:
+  uses-material-design: true
