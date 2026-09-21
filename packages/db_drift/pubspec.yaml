@@ -1,0 +1,16 @@
+name: db_drift
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  flutter:
+    sdk: flutter
+  core_domain:
+    path: ../core_domain
+  drift: ^2.35.0
+  drift_flutter: ^0.2.4
+  path_provider: ^2.1.5
+dev_dependencies:
+  build_runner: ^2.4.13
+  drift_dev: ^2.35.0

@@ -1,0 +1,8 @@
+name: model_plain
+publish_to: none
+environment:
+  sdk: ^3.6.0
+resolution: workspace
+dependencies:
+  core_domain:
+    path: ../core_domain
