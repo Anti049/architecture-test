@@ -1,40 +1,50 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:core_domain/core_domain.dart';
-import 'package:feature_splash/splash_screen.dart';
 import 'package:feature_auth/login_screen.dart';
+import 'package:feature_browse/browse_tab.dart';
+import 'package:feature_history/history_tab.dart';
 import 'package:feature_library/home_shell.dart';
 import 'package:feature_library/reader_screen.dart';
-import 'package:feature_updates/updates_tab.dart';
-import 'package:feature_history/history_tab.dart';
-import 'package:feature_browse/browse_tab.dart';
 import 'package:feature_more/more_tab.dart';
 import 'package:feature_more/simple_screen.dart';
+import 'package:feature_splash/splash_screen.dart';
+import 'package:feature_updates/updates_tab.dart';
 import 'package:nav_contract/nav_contract.dart';
-import 'package:nav_autoroute/auto_route_navigator.dart';
+import 'auto_route_navigator.dart';
+import 'library_cubit.dart';
+import 'library_page.dart';
 
 part 'app_router.gr.dart';
 
-// NOTE: Run `dart run build_runner build`
-// to generate app_router.gr.dart before first launch.
+AppRouter _appRouter(BuildContext context) => context.router.root as AppRouter;
 
 @RoutePage()
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
+
   @override
-  Widget build(BuildContext context) => SplashScreen(
-        nav: AppAutoRouteNavigator(context.router),
-        bootstrap: () async {},
-        isLoggedIn: () => false,
-      );
+  Widget build(BuildContext context) {
+    final router = _appRouter(context);
+    return SplashScreen(
+      nav: LocalAutoRouteNavigator(context.router),
+      bootstrap: () async {
+        await router.libraryCubit.repo.getLibrary();
+      },
+      isLoggedIn: () => false,
+    );
+  }
 }
 
 @RoutePage()
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
+
   @override
-  Widget build(BuildContext context) => LoginScreen(
-        nav: AppAutoRouteNavigator(context.router),
+  Widget build(BuildContext context) =>
+      LoginScreen(
+        nav: LocalAutoRouteNavigator(context.router),
         auth: _appRouter(context).auth,
       );
 }
@@ -42,35 +52,32 @@ class LoginPage extends StatelessWidget {
 @RoutePage()
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    final nav = AppAutoRouteNavigator(context.router);
-    return HomeShell(
-      nav: nav,
-      tabs: [
-        // Library page is wired via Riverpod in main.dart's ProviderScope.
-        const _RiverpodLibrarySlot(),
-        const UpdatesTab(),
-        const HistoryTab(),
-        const BrowseTab(),
-        MoreTab(nav: nav),
-      ],
+    final router = _appRouter(context);
+    final nav = LocalAutoRouteNavigator(context.router);
+    return BlocProvider.value(
+      value: router.libraryCubit..load(),
+      child: HomeShell(
+        nav: nav,
+        tabs: [
+          LibraryPage(nav),
+          const UpdatesTab(),
+          const HistoryTab(),
+          const BrowseTab(),
+          MoreTab(nav: nav),
+        ],
+      ),
     );
   }
 }
-
-class _RiverpodLibrarySlot extends StatelessWidget {
-  const _RiverpodLibrarySlot();
-  @override
-  Widget build(BuildContext context) => const SimpleScreen('Library');
-}
-
-AppRouter _appRouter(BuildContext context) => context.router.root as AppRouter;
 
 @RoutePage()
 class WorkDetailsPage extends StatelessWidget {
   final String id;
   const WorkDetailsPage({super.key, @PathParam('id') required this.id});
+
   @override
   Widget build(BuildContext context) => SimpleScreen('Work $id');
 }
@@ -78,6 +85,7 @@ class WorkDetailsPage extends StatelessWidget {
 @RoutePage()
 class ReaderPage extends StatelessWidget {
   const ReaderPage({super.key});
+
   @override
   Widget build(BuildContext context) => const ReaderScreen();
 }
@@ -85,6 +93,7 @@ class ReaderPage extends StatelessWidget {
 @RoutePage()
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
+
   @override
   Widget build(BuildContext context) => const SimpleScreen('About');
 }
@@ -92,6 +101,7 @@ class AboutPage extends StatelessWidget {
 @RoutePage()
 class HelpPage extends StatelessWidget {
   const HelpPage({super.key});
+
   @override
   Widget build(BuildContext context) => const SimpleScreen('Help');
 }
@@ -99,14 +109,17 @@ class HelpPage extends StatelessWidget {
 @RoutePage()
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
+
   @override
   Widget build(BuildContext context) => const SimpleScreen('Settings');
 }
 
 @AutoRouterConfig()
-class AppRouter extends RootStackRouter {
+class AppRouter extends _$AppRouter {
   final AuthService auth;
-  AppRouter(this.auth);
+  final LibraryCubit libraryCubit;
+
+  AppRouter({required this.auth, required this.libraryCubit});
 
   @override
   List<AutoRoute> get routes => [

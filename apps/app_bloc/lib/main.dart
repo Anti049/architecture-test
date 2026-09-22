@@ -11,11 +11,13 @@ void main() {
   final auth = DemoAuthService();
   final libraryCubit = LibraryCubit(repo);
 
-  runApp(ArchitectureTestApp(
-    repo: repo,
-    auth: auth,
-    libraryCubit: libraryCubit,
-  ));
+  runApp(
+    ArchitectureTestApp(
+      repo: repo,
+      auth: auth,
+      libraryCubit: libraryCubit,
+    ),
+  );
 }
 
 class ArchitectureTestApp extends StatelessWidget {

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:core_domain/core_domain.dart';
 import 'package:nav_contract/nav_contract.dart';

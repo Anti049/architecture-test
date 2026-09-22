@@ -20,7 +20,7 @@ scripts:
     description: Format all Dart code.
 
   gen:
-    run: dart run build_runner build --delete-conflicting-outputs
+    run: dart run build_runner build
     exec:
       concurrency: 1
     packageFilters:
@@ -28,7 +28,7 @@ scripts:
     description: Run build_runner in main-workspace packages that use codegen.
 
   gen:watch:
-    run: dart run build_runner watch --delete-conflicting-outputs
+    run: dart run build_runner watch
     packageFilters:
       dependsOn: build_runner
     description: Watch codegen.

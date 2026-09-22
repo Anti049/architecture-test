@@ -5,32 +5,10 @@ environment:
   sdk: ^3.6.0
 
 # WORKSPACE 1 (main / latest stack).
-# The Isar apps live in ./isar-workspace with their OWN workspace root because
-# isar_community_generator (analyzer <7) cannot co-resolve with Freezed 3.x /
-# current build_runner (analyzer 12-14).
-workspace:
-  - packages/core_domain
-  - packages/feature_splash
-  - packages/feature_auth
-  - packages/feature_library
-  - packages/feature_updates
-  - packages/feature_history
-  - packages/feature_browse
-  - packages/feature_more
-  - packages/nav_contract
-  - packages/nav_gorouter
-  - packages/nav_autoroute
-  - packages/db_drift
-  - packages/db_sqflite
-  - packages/model_freezed
-  - packages/model_mappable
-  - packages/model_plain
-  - apps/app_baseline
-  - apps/app_sqflite
-  - apps/app_bloc
-  - apps/app_mappable
-  - apps/app_no_immutable
-  - apps/app_autoroute
+# Managed by Melos in this root; the Isar apps live in ./isar-workspace with
+# their OWN isolated workspace root so incompatible codegen stacks never
+# resolve together.
 
 dev_dependencies:
+  flutter_lints: ^5.0.0
   melos: ^6.3.0
