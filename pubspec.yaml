@@ -10,7 +10,6 @@ environment:
 # current build_runner (analyzer 12-14).
 workspace:
   - packages/core_domain
-  - packages/core_ui
   - packages/feature_splash
   - packages/feature_auth
   - packages/feature_library
