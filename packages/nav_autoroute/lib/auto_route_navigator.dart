@@ -13,7 +13,7 @@ class AppAutoRouteNavigator implements AppNavigator {
   @override
   void goLogin() => router.replacePath(Routes.login);
   @override
-  void goHome() => router.replacePath(Routes.library);
+  void goHome() => router.replacePath(Routes.home);
   @override
   void goLibrary() => router.replacePath(Routes.library);
   @override

@@ -12,7 +12,7 @@ class LocalAutoRouteNavigator implements AppNavigator {
   void goLogin() => router.replaceNamed(Routes.login);
 
   @override
-  void goHome() => router.replaceNamed(Routes.library);
+  void goHome() => router.replaceNamed(Routes.home);
 
   @override
   void goLibrary() => router.replaceNamed(Routes.library);

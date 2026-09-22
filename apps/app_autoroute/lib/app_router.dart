@@ -15,7 +15,7 @@ import 'package:nav_autoroute/auto_route_navigator.dart';
 
 part 'app_router.gr.dart';
 
-// NOTE: Run `dart run build_runner build --delete-conflicting-outputs`
+// NOTE: Run `dart run build_runner build`
 // to generate app_router.gr.dart before first launch.
 
 @RoutePage()
@@ -112,7 +112,8 @@ class AppRouter extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashRoute.page, path: Routes.splash, initial: true),
         AutoRoute(page: LoginRoute.page, path: Routes.login),
-        AutoRoute(page: HomeRoute.page, path: Routes.library),
+        AutoRoute(page: HomeRoute.page, path: Routes.home),
+        RedirectRoute(path: Routes.library, redirectTo: Routes.home),
         AutoRoute(page: WorkDetailsRoute.page, path: Routes.workDetails),
         AutoRoute(page: ReaderRoute.page, path: Routes.reader),
         AutoRoute(page: AboutRoute.page, path: Routes.about),

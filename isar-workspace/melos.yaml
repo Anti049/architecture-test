@@ -10,7 +10,7 @@ command:
 
 scripts:
   gen:
-    run: dart run build_runner build --delete-conflicting-outputs
+    run: dart run build_runner build
     exec:
       concurrency: 1
     packageFilters:

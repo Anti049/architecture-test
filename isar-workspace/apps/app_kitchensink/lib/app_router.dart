@@ -125,7 +125,8 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashRoute.page, path: Routes.splash, initial: true),
         AutoRoute(page: LoginRoute.page, path: Routes.login),
-        AutoRoute(page: HomeRoute.page, path: Routes.library),
+        AutoRoute(page: HomeRoute.page, path: Routes.home),
+        RedirectRoute(path: Routes.library, redirectTo: Routes.home),
         AutoRoute(page: WorkDetailsRoute.page, path: Routes.workDetails),
         AutoRoute(page: ReaderRoute.page, path: Routes.reader),
         AutoRoute(page: AboutRoute.page, path: Routes.about),
