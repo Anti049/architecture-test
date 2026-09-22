@@ -2,11 +2,9 @@ name: db_sqflite
 publish_to: none
 environment:
   sdk: ^3.6.0
-resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  core_domain:
-    path: ../core_domain
+  core_domain: any
   sqflite: ^2.4.1
   path: ^1.9.0

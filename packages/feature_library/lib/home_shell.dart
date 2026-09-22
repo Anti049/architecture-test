@@ -22,7 +22,9 @@ class _HomeShellState extends State<HomeShell> {
           onDestinationSelected: (i) => setState(() => _index = i),
           destinations: const [
             NavigationDestination(
-                icon: Icon(Icons.collections_bookmark), label: 'Library'),
+              icon: Icon(Icons.collections_bookmark),
+              label: 'Library',
+            ),
             NavigationDestination(icon: Icon(Icons.update), label: 'Updates'),
             NavigationDestination(icon: Icon(Icons.history), label: 'History'),
             NavigationDestination(icon: Icon(Icons.explore), label: 'Browse'),

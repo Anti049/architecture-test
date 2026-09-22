@@ -4,34 +4,21 @@ publish_to: none
 version: 1.0.0+1
 environment:
   sdk: ^3.6.0
-resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  core_domain:
-    path: ../../packages/core_domain
-  nav_contract:
-    path: ../../packages/nav_contract
-  feature_splash:
-    path: ../../packages/feature_splash
-  feature_auth:
-    path: ../../packages/feature_auth
-  feature_library:
-    path: ../../packages/feature_library
-  feature_updates:
-    path: ../../packages/feature_updates
-  feature_history:
-    path: ../../packages/feature_history
-  feature_browse:
-    path: ../../packages/feature_browse
-  feature_more:
-    path: ../../packages/feature_more
-  db_sqflite:
-    path: ../../packages/db_sqflite
-  model_freezed:
-    path: ../../packages/model_freezed
-  nav_gorouter:
-    path: ../../packages/nav_gorouter
+  core_domain: any
+  nav_contract: any
+  feature_splash: any
+  feature_auth: any
+  feature_library: any
+  feature_updates: any
+  feature_history: any
+  feature_browse: any
+  feature_more: any
+  db_sqflite: any
+  model_freezed: any
+  nav_gorouter: any
   flutter_riverpod: ^2.6.1
   go_router: ^16.0.0
   shared_preferences: ^2.3.3

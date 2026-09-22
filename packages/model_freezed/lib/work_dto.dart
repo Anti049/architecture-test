@@ -5,7 +5,7 @@ part 'work_dto.freezed.dart';
 part 'work_dto.g.dart';
 
 @freezed
-class WorkDto with _$WorkDto {
+abstract class WorkDto with _$WorkDto {
   const WorkDto._();
   const factory WorkDto({
     required String id,

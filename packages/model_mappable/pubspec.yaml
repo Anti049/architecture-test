@@ -2,10 +2,8 @@ name: model_mappable
 publish_to: none
 environment:
   sdk: ^3.6.0
-resolution: workspace
 dependencies:
-  core_domain:
-    path: ../core_domain
+  core_domain: any
   dart_mappable: ^4.3.0
 dev_dependencies:
   build_runner: ^2.4.13

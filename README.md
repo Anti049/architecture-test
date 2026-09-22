@@ -40,16 +40,24 @@ is a clean A/B test while still exercising **every** package listed above.
 
 ## Why two workspaces?
 
-A single Dart pub workspace shares **one** resolution of every transitive dependency.
-`isar_community_generator` 3.3.2 requires `analyzer ^6.9.0 (<7.0.0)`, while Freezed 3.x
-and current `build_runner` (2.15.x) require `analyzer 12-14`. These ranges **do not
-overlap**, so Isar cannot co-resolve with Freezed 3.x. The fix:
+The repo uses **two isolated Melos workspaces** because the code generators on
+each side need different dependency graphs. A single Dart pub workspace shares
+**one** resolution of every transitive dependency, which breaks this matrix:
+`isar_community_generator` 3.3.2 requires `analyzer ^6.9.0 (<7.0.0)`, while
+the main-side Drift/Freezed/AutoRoute stack wants newer analyzer/source_gen
+lines. These ranges **do not overlap**, so the stacks must bootstrap
+independently. The split is:
 
 - **Main workspace** (`./pubspec.yaml`) - Drift, sqflite, Freezed, dart_mappable, all
   nav + state packages on the newest versions.
-- **Isar workspace** (`./isar-workspace/pubspec.yaml`) - isolated, with
-  `build_runner` pinned to `^2.4.13` and models restricted to **Plain** or
-  **dart_mappable** (never Freezed).
+- **Isar workspace** (`./isar-workspace/`) - isolated under its own Melos root,
+  with `build_runner` pinned to `^2.4.13` and models restricted to **Plain** or
+  **dart_mappable** (never Freezed). The Isar AutoRoute apps stay on
+  `auto_route` / `auto_route_generator` **v8** because that line still supports
+  the analyzer `<7` pin, while the main workspace uses AutoRoute 11. The Isar
+  side intentionally avoids a single Dart pub workspace because that would force
+  `isar_community_generator` and `auto_route_generator` to share one
+  incompatible `source_gen` resolution.
 
 Shared `packages/` are referenced from both workspaces via path dependencies.
 
@@ -84,7 +92,7 @@ apps/app_*       -> compose one implementation per axis in main.dart
 ## Prerequisites (Windows 11)
 
 ```powershell
-flutter --version            # >= 3.27 (Dart >= 3.6) for pub workspaces
+flutter --version            # >= 3.27 (Dart >= 3.6)
 dart pub global activate melos
 code --install-extension Dart-Code.flutter
 code --install-extension blaugold.melos-code
@@ -114,7 +122,8 @@ melos run analyze
 # Isar workspace (isolated)
 cd isar-workspace
 melos bootstrap
-melos run gen          # isar codegen (build_runner 2.4.x)
+melos run gen          # isar + auto_route v8 + dart_mappable codegen (build_runner 2.4.x)
+melos run analyze
 cd ..
 ```
 
@@ -133,7 +142,7 @@ For Isar apps: `cd isar-workspace\apps\app_isar; flutter run -d windows`.
 2. Swap the `db_*`, `model_*`, `nav_*`, and state (`flutter_riverpod` /
    `flutter_bloc`) dependencies in its `pubspec.yaml`.
 3. Adjust `main.dart` wiring. Feature/UI code never changes.
-4. Add the app to the correct workspace `pubspec.yaml`, then `melos bootstrap`.
+4. Add the app to the correct Melos workspace, then `melos bootstrap`.
 
 ## Windows gotchas
 

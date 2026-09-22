@@ -1,31 +1,31 @@
-import 'package:core_domain/core_domain.dart';
+import 'package:core_domain/core_domain.dart' as domain;
 import 'package:drift/drift.dart';
 import 'database.dart';
 
-class DriftWorkRepository implements WorkRepository {
+class DriftWorkRepository implements domain.WorkRepository {
   final AppDatabase db;
   DriftWorkRepository(this.db);
 
   @override
-  Future<List<Work>> getLibrary() async {
+  Future<List<domain.Work>> getLibrary() async {
     final rows = await db.select(db.works).get();
     return rows
-        .map((r) => Work(
+        .map((r) => domain.Work(
               id: r.id,
               title: r.title,
               author: r.author,
               coverUrl: r.coverUrl,
               description: r.description,
-            ))
+            ),)
         .toList();
   }
 
   @override
-  Future<Work?> getWork(String id) async {
+  Future<domain.Work?> getWork(String id) async {
     final row = await (db.select(db.works)..where((t) => t.id.equals(id)))
         .getSingleOrNull();
     if (row == null) return null;
-    return Work(
+    return domain.Work(
       id: row.id,
       title: row.title,
       author: row.author,
@@ -35,20 +35,20 @@ class DriftWorkRepository implements WorkRepository {
   }
 
   @override
-  Stream<List<Work>> watchLibrary() => db.select(db.works).watch().map(
+  Stream<List<domain.Work>> watchLibrary() => db.select(db.works).watch().map(
         (rows) => rows
-            .map((r) => Work(
+            .map((r) => domain.Work(
                   id: r.id,
                   title: r.title,
                   author: r.author,
                   coverUrl: r.coverUrl,
                   description: r.description,
-                ))
+                ),)
             .toList(),
       );
 
   @override
-  Future<void> upsert(Work work) async {
+  Future<void> upsert(domain.Work work) async {
     await db.into(db.works).insertOnConflictUpdate(
           WorksCompanion.insert(
             id: work.id,

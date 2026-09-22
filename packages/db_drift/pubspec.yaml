@@ -2,12 +2,10 @@ name: db_drift
 publish_to: none
 environment:
   sdk: ^3.6.0
-resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  core_domain:
-    path: ../core_domain
+  core_domain: any
   drift: ^2.35.0
   # drift_flutter 0.2.4 pins sqlite3 ^2.x, which conflicts with drift 2.35's
   # requirement of sqlite3 ^3.4.0. 0.3.1 depends on sqlite3 3.x and matches drift 2.35.

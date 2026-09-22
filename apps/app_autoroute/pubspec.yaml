@@ -4,34 +4,21 @@ publish_to: none
 version: 1.0.0+1
 environment:
   sdk: ^3.6.0
-resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  core_domain:
-    path: ../../packages/core_domain
-  nav_contract:
-    path: ../../packages/nav_contract
-  feature_splash:
-    path: ../../packages/feature_splash
-  feature_auth:
-    path: ../../packages/feature_auth
-  feature_library:
-    path: ../../packages/feature_library
-  feature_updates:
-    path: ../../packages/feature_updates
-  feature_history:
-    path: ../../packages/feature_history
-  feature_browse:
-    path: ../../packages/feature_browse
-  feature_more:
-    path: ../../packages/feature_more
-  db_drift:
-    path: ../../packages/db_drift
-  model_freezed:
-    path: ../../packages/model_freezed
-  nav_autoroute:
-    path: ../../packages/nav_autoroute
+  core_domain: any
+  nav_contract: any
+  feature_splash: any
+  feature_auth: any
+  feature_library: any
+  feature_updates: any
+  feature_history: any
+  feature_browse: any
+  feature_more: any
+  db_drift: any
+  model_freezed: any
+  nav_autoroute: any
   flutter_riverpod: ^2.6.1
   auto_route: ^11.1.0
 dev_dependencies:
@@ -39,6 +26,6 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^5.0.0
   build_runner: ^2.4.13
-  auto_route_generator: ^11.1.0
+  auto_route_generator: ^10.6.0
 flutter:
   uses-material-design: true

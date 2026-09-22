@@ -2,9 +2,7 @@ name: nav_contract
 publish_to: none
 environment:
   sdk: ^3.6.0
-resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  core_domain:
-    path: ../core_domain
+  core_domain: any

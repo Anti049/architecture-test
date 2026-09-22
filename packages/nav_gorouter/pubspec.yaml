@@ -2,10 +2,8 @@ name: nav_gorouter
 publish_to: none
 environment:
   sdk: ^3.6.0
-resolution: workspace
 dependencies:
   flutter:
     sdk: flutter
-  nav_contract:
-    path: ../nav_contract
+  nav_contract: any
   go_router: ^16.0.0
